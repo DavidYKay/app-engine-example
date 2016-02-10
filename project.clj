@@ -1,10 +1,9 @@
 (defproject nandxorbox "1.0.0-SNAPSHOT"
-  :description "Arthurs Dev Sandbox"
+  :description "App Engine Dev Sandbox"
   :aot [nandxorbox.core nandxorbox.app_servlet]
-  :dependencies [[org.clojure/clojure "1.2.1"]
-                 [org.clojure/clojure-contrib "1.2.0"]
-                 [compojure "0.6.2"]
-                 [hiccup "0.3.4"]]
-  
-  :dev-dependencies [[appengine-magic "0.4.1"]
-                     [swank-clojure "1.2.1"]])
+  :dependencies [[org.clojure/clojure "1.8.0"]
+                 [compojure "1.4.0"]
+                 [appengine-magic "0.5.0"]
+                 [hiccup "1.0.5"]]
+
+)

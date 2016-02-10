@@ -1,20 +1,16 @@
 (ns nandxorbox.core
-  (:use ;[hiccup.core]
-        [hiccup.page-helpers :only (html5 include-css)]
-        [clojure.contrib.string :only (split)]
-        [compojure.core :only (defroutes GET)]
-        [hiccup.middleware :only (wrap-base-url)])
   (:require [appengine-magic.core :as ae]
-            [compojure.route :as route
-             :only (resources not-found) ]
-;            [compojure.handler :as handler :only (site)]
-;            [compojure.api :as api :only (site)]
-            )
+            [clojure.string :refer [split]]
+            [compojure.core :refer [defroutes GET]]
+            [hiccup.middleware :refer [wrap-base-url]]
+            [hiccup.core :refer [html]]
+            [hiccup.page :refer [include-css]]
+            [compojure.route :as route :refer [resources not-found]])
   (:gen-class :extends javax.servlet.http.HttpServlet))
 
 (defn index-page
   ([name]
-     (html5
+     (html
       [:head
        [:title (str "Hello " name)]
        (include-css "/css/style.css")]
@@ -37,9 +33,12 @@
   (route/resources "/")
   (route/not-found "Page not found"))
 
-(def app
-     (->  hello-routes
-         (wrap-base-url)))
+(def app (wrap-base-url hello-routes))
 
 (ae/def-appengine-app nandxorbox-app #'app)
-;(ae/serve helloworld-app)
+
+(defn start []
+  (ae/serve nandxorbox-app))
+
+(defn stop []
+  (ae/stop))
